@@ -1,3 +1,7 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 
-export const routes: Routes = [];
+const signUpRoute: string = 'sign-up';
+
+export const routes: Routes = [
+  {path: signUpRoute, loadComponent: () => import('./features/session/sign-up/sign-up.component').then(m => m.SignUpComponent)}
+];
