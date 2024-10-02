@@ -1,1 +1,19 @@
-<div>Signup works</div>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="w-full max-w-lg bg-white p-8 rounded-lg shadow-md space-y-4">
+    <h1 class="text-center text-2xl font-semibold mb-4">Sign Up</h1>
+
+    <div>
+      <ejs-textbox placeholder="Username" formControlName="username"></ejs-textbox>
+      <small class="text-red-500" *ngIf="signUpForm.controls['username'].invalid && signUpForm.controls['username'].touched">Username is required</small>
+    </div>
+
+    <div>
+      <ejs-textbox type="password" placeholder="Password" formControlName="password"></ejs-textbox>
+      <small class="text-red-500" *ngIf="signUpForm.controls['password'].invalid && signUpForm.controls['password'].touched">Password is required</small>
+    </div>
+
+    <div class="w-full items-center justify-items-center">
+      <button ejs-button type="submit" cssClass="w-1/4 bg-blue-500 text-white">Sign Up</button>
+    </div>
+  </form>
+</div>
