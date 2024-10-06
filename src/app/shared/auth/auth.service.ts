@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {usersUrl} from "../configurations/routes-config";
+import {usersApiUrl} from "../configurations/routes-config";
 import {map, Observable} from "rxjs";
 import {Session} from "../../features/session/model/session";
 
@@ -26,7 +26,7 @@ export class AuthService {
    * - Emits 'false' if no matching user is found.
    */
   login(credentials: Session): Observable<boolean> {
-    return this.http.get(usersUrl).pipe(
+    return this.http.get(usersApiUrl).pipe(
       map((userDetailsDb: any) => {
         const user = userDetailsDb.find((u: any) => u.username === credentials.username && u.password === credentials.password);
         if (user) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {usersUrl} from '../../shared/configurations/routes-config'
+import {usersApiUrl} from '../../shared/configurations/routes-config'
 import {HttpClient} from "@angular/common/http";
 import {Subject} from "rxjs";
 
@@ -24,7 +24,7 @@ export class SessionService {
    *    - Displays an alert with the error message.
    */
   onUserSignUp(newUser: any) {
-    this.http.post(usersUrl, newUser).subscribe({
+    this.http.post(usersApiUrl, newUser).subscribe({
       next: (value) => {
         if (value) {
           this.userSignUp.next(value);
