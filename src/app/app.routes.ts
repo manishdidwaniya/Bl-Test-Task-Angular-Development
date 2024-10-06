@@ -4,6 +4,7 @@ import {authGuard} from "./shared/auth/auth.guard";
 const signUpRoute: string = 'sign-up';
 const signInRoute: string = 'sign-in';
 const dashboardRoute: string = 'dashboard';
+const groupRoute: string = 'groups';
 
 export const routes: Routes = [
   {
@@ -19,5 +20,8 @@ export const routes: Routes = [
   },
   { canActivate: [authGuard],
     path: dashboardRoute, loadComponent: ()=> import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
+  },
+  {
+    path: groupRoute, loadComponent: ()=> import('./features/groups/management/list-group/list-group.component').then(m => m.ListGroupComponent)
   }
 ];
