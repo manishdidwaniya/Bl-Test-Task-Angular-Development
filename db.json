@@ -15,5 +15,34 @@
       "username": "demo",
       "password": "demo"
     }
+  ],
+  "groups": [
+    {
+      "id": "2c1f",
+      "groupName": "Manali Trip",
+      "groupDescription": "Bsse group",
+      "members": [
+        {
+          "name": "Manish",
+          "email": "amnish@mail.com"
+        },
+        {
+          "name": "Rahul  ",
+          "email": "abc@m"
+        },
+        {
+          "name": "Akash",
+          "email": "bhaiyu@mail.com"
+        },
+        {
+          "name": "Honey",
+          "email": "honey@gmail.com"
+        },
+        {
+          "name": "Pallav",
+          "email": "pallav@free.com"
+        }
+      ]
+    }
   ]
 }
