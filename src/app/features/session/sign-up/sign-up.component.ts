@@ -8,7 +8,7 @@ import {SessionService} from "../session.service";
 import {Subscription} from "rxjs";
 import {Session} from "../model/session";
 import {NotificationsService} from "../../../shared/common/services/notifications.service";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 
 @Component({
@@ -29,7 +29,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
   public signUpForm!: FormGroup;
   public userSignUp$: Subscription = new Subscription();
   constructor(private http: HttpClient, private sessionService: SessionService,
-              public formBuilder: FormBuilder, private notificationsService: NotificationsService) {
+              public formBuilder: FormBuilder, private notificationsService: NotificationsService,
+              public router: Router) {
   }
 
 
@@ -38,9 +39,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.userSignUp$ = this.sessionService.userSignUp$.subscribe(response => {
       if (response) {
         this.notificationsService.displaySuccessMessageOnToast('User has been created successfully.');
-        //TODO: To be put code after successful creating user
+        this.router.navigate(['sign-in']);
       }
-    })
+    });
   }
 
   createSignUpForm() {
