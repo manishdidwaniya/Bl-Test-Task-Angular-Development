@@ -7,6 +7,7 @@ import {HttpClient} from "@angular/common/http";
 import {SessionService} from "../session.service";
 import {Subscription} from "rxjs";
 import {Session} from "../model/session";
+import {NotificationsService} from "../../../shared/common/services/notifications.service";
 
 
 @Component({
@@ -26,7 +27,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   public signUpForm!: FormGroup;
   public userSignUp$: Subscription = new Subscription();
   constructor(private http: HttpClient, private sessionService: SessionService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder, private notificationsService: NotificationsService) {
   }
 
 
@@ -34,6 +35,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.createSignUpForm();
     this.userSignUp$ = this.sessionService.userSignUp$.subscribe(response => {
       if (response) {
+        this.notificationsService.displaySuccessMessageOnToast('User has been created successfully.');
         //TODO: To be put code after successful creating user
       }
     })
