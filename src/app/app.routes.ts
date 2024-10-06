@@ -1,11 +1,13 @@
 import {Routes} from '@angular/router';
+import {authGuard} from "./shared/auth/auth.guard";
 
 const signUpRoute: string = 'sign-up';
 const signInRoute: string = 'sign-in';
+const dashboardRoute: string = 'dashboard';
 
 export const routes: Routes = [
   {
-    path: '**',
+    path: '',
     redirectTo: signInRoute,
     pathMatch: 'full'
   },
@@ -14,5 +16,8 @@ export const routes: Routes = [
   },
   {
     path: signInRoute, loadComponent: ()=> import('./features/session/sign-in/sign-in.component').then(m => m.SignInComponent)
+  },
+  { canActivate: [authGuard],
+    path: dashboardRoute, loadComponent: ()=> import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
   }
 ];
