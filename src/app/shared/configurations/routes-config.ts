@@ -1,1 +1,2 @@
-export const usersUrl: string = 'http://localhost:3000/users';
+export const usersApiUrl: string = 'http://localhost:3000/users';
+export const groupsApiUrl: string = 'http://localhost:3000/groups';

@@ -1,0 +1,55 @@
+<div class="mt-10 p-10">
+
+  <div class="flex flex-row">
+    <div class="text-3xl font-semibold pb-2">
+      Groups
+    </div>
+    <button ejs-button class="ml-5" isPrimary="true" content="+ Add New Group" (click)="onAddNewGroup()"></button>
+  </div>
+  <div>
+
+    <div *ngIf="groupDetailsList && groupDetailsList.length > 0; else noGroups" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
+      <div *ngFor="let group of groupDetailsList" class="e-card p-4 shadow-md transition duration-300 ease-in-out transform hover:relative border-2 border-transparent hover:border-double hover:border-gray-500">
+        <div class="e-card-header">
+          <div class="e-card-header-caption">
+            <div class="e-card-title font-bold text-lg mb-2">{{ 'Group Name:'+ ' ' + group.groupName }}</div>
+
+          </div>
+        </div>
+        <div class="e-card-content text-sm text-gray-500 mb-2">{{ 'Group Description:'+ ' ' + group.groupDescription }}</div>
+
+        <div class="e-card-footer ml-4 pb-4 text-sm">
+          <ng-container *ngIf="displayNames(group.members).length > 0; else showEmails">
+            {{'Group Members:' + ' ' + displayNames(group.members).slice(0, 3).join(', ') }}
+            <span *ngIf="displayNames(group.members).length > 3">
+              and {{ displayNames(group.members).length - 3 }} more
+            </span>
+          </ng-container>
+
+          <ng-template #showEmails>
+            {{ displayEmails(group.members).slice(0, 3).join(', ') }}
+            <span *ngIf="displayEmails(group.members).length > 3">
+              and {{ displayEmails(group.members).length - 3 }} more
+            </span>
+          </ng-template>
+        </div>
+        <div class="e-card-separator"></div>
+        <div class="flex justify-center">
+        <button ejs-button (click)="onUpdateSelectedUserGroup(group?.id)" class="mt-4 w-1/4 bg-green-500 text-white hover:bg-green-400">Edit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Groups Template -->
+    <ng-template #noGroups>
+      <div class="flex flex-col items-center text-center">
+        <p class="text-lg font-semibold text-gray-700">No Groups Available</p>
+        <p class="text-sm text-gray-500">Create a new group to get started managing your expenses.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<div *ngIf="isModalVisible">
+  <app-modify-group [selectedGroupId]="selectedGroupId" (notifyListGroupComponent)="handleModifyGroupComponentEvent($event)"></app-modify-group>
+</div>

@@ -1,0 +1,102 @@
+<div>
+  <ejs-dialog
+    id="groupModal"
+    [showCloseIcon]="true"
+    [width]="'600px'"
+    [minHeight]="'70vh'"
+    [animationSettings]='animationSettings'
+    [position]="{ X: 'center', Y: 'center' }"
+    [header]=groupModalHeading
+    (open)="onOpen($event)"
+    (close)="closeModal()"
+    [isModal]="true"
+    class="p-6 overflow-hidden">
+    <div>
+      <form [formGroup]="groupForm">
+        <!-- Group Name -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">Group Name*</label>
+          <ejs-textbox
+            formControlName="groupName"
+            class="w-full border border-gray-300 rounded"
+            placeholder="Enter group name"
+          ></ejs-textbox>
+          <div
+            *ngIf="groupForm.get('groupName')?.invalid && groupForm.get('groupName')?.touched"
+            class="text-red-500 text-xs mt-1"
+          >
+            Group Name is required
+          </div>
+        </div>
+
+        <!-- Group Description -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">Group Description</label>
+          <ejs-textbox
+            formControlName="groupDescription"
+            class="w-full border border-gray-300 rounded"
+            placeholder="Enter group description"
+          ></ejs-textbox>
+        </div>
+
+        <!-- FormArray for Group Members -->
+        <div formArrayName="members" class="space-y-4">
+          <div
+            class="p-4 border rounded-md bg-gray-100 flex items-center justify-between"
+            *ngFor="let member of members.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <!-- Name -->
+            <div class="w-5/12">
+              <ejs-textbox
+                formControlName="name"
+                class="w-full border border-gray-300 rounded"
+                placeholder="Name"
+              ></ejs-textbox>
+            </div>
+
+            <!-- Email -->
+            <div class="w-5/12">
+              <ejs-textbox
+                formControlName="email"
+                class="w-full border border-gray-300 rounded"
+                placeholder="Email"
+              ></ejs-textbox>
+              <div
+                *ngIf="member.get('email')?.invalid && member.get('email')?.touched"
+                class="text-red-500 text-xs mt-1">
+                Provide a valid email address
+              </div>
+            </div>
+
+            <!-- Remove Button -->
+            <div class="w-1/12 text-right">
+              <button ejs-button cssClass="e-round" iconCss="e-icons e-plus-icon" [isPrimary]="false"
+                      (click)="removeMember(i)"></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add Member Button -->
+        <div class="my-4 text-right">
+          <button
+            ejs-button
+            cssClass="e-small"
+            (click)="addMember()">
+            + Add Member
+          </button>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+          <button
+            ejs-button
+            cssClass="e-success" (click)="onGroupAddOrUpdate()">
+            Save Group
+          </button>
+
+        </div>
+      </form>
+    </div>
+  </ejs-dialog>
+</div>
