@@ -1,4 +1,9 @@
 export interface Session {
-  userName: string;
+  id?: string;
+  username: string;
   password: string;
+}
+
+export interface ISession {
+  users: Session[];
 }

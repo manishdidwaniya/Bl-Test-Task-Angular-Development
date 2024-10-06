@@ -1,1 +1,17 @@
-<p>sign-in works!</p>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+  <form [formGroup]="loginForm" class="w-full max-w-lg bg-white p-8 rounded-lg shadow-md space-y-4">
+    <h1 class="text-center text-2xl font-semibold mb-4">Login</h1>
+
+    <div>
+      <ejs-textbox placeholder="UserName" formControlName="username"></ejs-textbox>
+      <small class="text-red-500" *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched">Email is required</small>
+    </div>
+
+    <div>
+      <ejs-textbox type="password" placeholder="Password" formControlName="password"></ejs-textbox>
+      <small class="text-red-500" *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">Password is required</small>
+    </div>
+
+    <button ejs-button [isPrimary]="true" (click)="onSignInButtonClick()" content="Login"></button>
+  </form>
+</div>
