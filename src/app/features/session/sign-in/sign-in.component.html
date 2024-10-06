@@ -1,5 +1,5 @@
-<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-  <form [formGroup]="loginForm" class="w-full max-w-lg bg-white p-8 rounded-lg shadow-md space-y-4">
+<div class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-green-300 to-blue-400 p-4">
+  <form [formGroup]="loginForm" class="w-full max-w-lg bg-white bg-opacity-80 p-8 rounded-lg shadow-md space-y-4">
     <h1 class="text-center text-2xl font-semibold mb-4">Login</h1>
 
     <div>
@@ -12,6 +12,16 @@
       <small class="text-red-500" *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">Password is required</small>
     </div>
 
-    <button ejs-button [isPrimary]="true" (click)="onSignInButtonClick()" content="Login"></button>
+    <div class="flex justify-center">
+      <button ejs-button [isPrimary]="true" (click)="onSignInButtonClick()" content="Login"></button>
+    </div>
+
+    <div class="text-center">
+      <p class="text-sm font-semibold text-gray-700">Don't have an account yet?</p>
+      <a [routerLink]="['/sign-up']" class="hover:underline text-sm font-medium">
+        Join Us Today!
+      </a>
+    </div>
+
   </form>
 </div>

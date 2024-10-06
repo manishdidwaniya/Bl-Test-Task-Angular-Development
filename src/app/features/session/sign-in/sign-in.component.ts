@@ -5,7 +5,7 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {ButtonAllModule} from "@syncfusion/ej2-angular-buttons";
 import {SessionService} from "../session.service";
 import {AuthService} from "../../../shared/auth/auth.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-sign-in',
@@ -14,7 +14,8 @@ import {Router} from "@angular/router";
     TextBoxAllModule,
     NgIf,
     ReactiveFormsModule,
-    ButtonAllModule
+    ButtonAllModule,
+    RouterLink
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
@@ -22,7 +23,7 @@ import {Router} from "@angular/router";
 export class SignInComponent implements OnInit, OnDestroy{
   public loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private sessionService: SessionService,
+  constructor(public fb: FormBuilder, private sessionService: SessionService,
               private authService: AuthService, private router: Router) {
   }
 

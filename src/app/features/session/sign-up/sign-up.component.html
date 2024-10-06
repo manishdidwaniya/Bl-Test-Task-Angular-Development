@@ -1,5 +1,5 @@
-<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="w-full max-w-lg bg-white p-8 rounded-lg shadow-md space-y-4">
+<div class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-green-300 to-blue-400 p-4">
+  <form [formGroup]="signUpForm" class="w-full max-w-lg bg-white bg-opacity-80 p-8 rounded-lg shadow-md space-y-4">
     <h1 class="text-center text-2xl font-semibold mb-4">Sign Up</h1>
 
     <div>
@@ -12,8 +12,16 @@
       <small class="text-red-500" *ngIf="signUpForm.controls['password'].invalid && signUpForm.controls['password'].touched">Password is required</small>
     </div>
 
-    <div class="w-full items-center justify-items-center">
-      <button ejs-button type="submit" cssClass="w-1/4 bg-blue-500 text-white">Sign Up</button>
+    <div class="flex justify-center">
+      <button ejs-button (click)="onSubmit()" [isPrimary]="true" >Sign Up</button>
     </div>
+
+    <div class="text-center">
+      <p class="text-sm font-semibold text-gray-700">Already have an account?</p>
+      <a [routerLink]="['/sign-in']" class="hover:underline">
+        Sign In
+      </a>
+    </div>
+
   </form>
 </div>

@@ -8,6 +8,7 @@ import {SessionService} from "../session.service";
 import {Subscription} from "rxjs";
 import {Session} from "../model/session";
 import {NotificationsService} from "../../../shared/common/services/notifications.service";
+import {RouterLink} from "@angular/router";
 
 
 @Component({
@@ -17,7 +18,8 @@ import {NotificationsService} from "../../../shared/common/services/notification
     ReactiveFormsModule,
     TextBoxAllModule,
     ButtonAllModule,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
@@ -27,7 +29,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   public signUpForm!: FormGroup;
   public userSignUp$: Subscription = new Subscription();
   constructor(private http: HttpClient, private sessionService: SessionService,
-              private formBuilder: FormBuilder, private notificationsService: NotificationsService) {
+              public formBuilder: FormBuilder, private notificationsService: NotificationsService) {
   }
 
 
