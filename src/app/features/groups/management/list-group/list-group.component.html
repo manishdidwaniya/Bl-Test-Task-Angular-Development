@@ -13,11 +13,12 @@
         <div class="e-card-header">
           <div class="e-card-header-caption">
             <div class="e-card-title font-bold text-lg mb-2">{{ 'Group Name:'+ ' ' + group.groupName }}</div>
+
           </div>
         </div>
-        <div class="e-card-content text-sm text-gray-500 mb-4">{{ 'Group Description:'+ ' ' + group.groupDescription }}</div>
+        <div class="e-card-content text-sm text-gray-500 mb-2">{{ 'Group Description:'+ ' ' + group.groupDescription }}</div>
 
-        <div class="e-card-footer text-sm">
+        <div class="e-card-footer ml-4 pb-4 text-sm">
           <ng-container *ngIf="displayNames(group.members).length > 0; else showEmails">
             {{'Group Members:' + ' ' + displayNames(group.members).slice(0, 3).join(', ') }}
             <span *ngIf="displayNames(group.members).length > 3">
@@ -32,6 +33,7 @@
             </span>
           </ng-template>
         </div>
+        <div class="e-card-separator"></div>
         <div class="flex justify-center">
         <button ejs-button (click)="onUpdateSelectedUserGroup(group?.id)" class="mt-4 w-1/4 bg-green-500 text-white hover:bg-green-400">Edit</button>
         </div>
