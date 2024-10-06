@@ -28,7 +28,8 @@ export class ListGroupComponent implements OnInit, OnDestroy{
   groupDetailsList: any = [];
   allGroupDetails$: Subscription = new Subscription();
   isModalVisible: boolean = false;
-  public routeQueryParams$: Subscription = new Subscription();
+  routeQueryParams$: Subscription = new Subscription();
+  selectedGroupId: string = '';
 
   constructor(private groupService: GroupService, private router: Router, public activatedRoute: ActivatedRoute) {
   }
@@ -44,7 +45,7 @@ export class ListGroupComponent implements OnInit, OnDestroy{
         if (params['add'] && params['add'] === 'true') {
           this.onAddNewGroup();
         } else if (params['id'] && params['id'] !== '') {
-          //TODO: Add logic when working edit
+          this.onUpdateSelectedUserGroup(params['id'])
         }
       } else {
         this.isModalVisible = false;
@@ -71,6 +72,14 @@ export class ListGroupComponent implements OnInit, OnDestroy{
   handleAddNewGroupComponentEvent(value: boolean) {
     this.isModalVisible = value;
     this.router.navigate(['/groups'], { queryParams: {} });
+  }
+
+  onUpdateSelectedUserGroup(selectedGroupId: string) {
+    if (selectedGroupId && selectedGroupId !== '') {
+      this.selectedGroupId = selectedGroupId;
+      this.isModalVisible = true;
+      this.router.navigate(['groups'],{queryParams: {id: selectedGroupId}})
+    }
   }
 
   ngOnDestroy() {

@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter, OnInit} from '@angular/core';
+import {Component, Output, EventEmitter, OnInit, Input} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgForOf, NgIf} from "@angular/common";
 import {TextBoxAllModule} from "@syncfusion/ej2-angular-inputs";
@@ -25,6 +25,7 @@ import {NotificationsService} from "../../../../shared/common/services/notificat
 })
 
 export class ModifyGroupComponent implements OnInit{
+  @Input() selectedGroupId? : string;
   groupForm!: FormGroup;
   public animationSettings: Object = { effect: 'Zoom', duration: 400, delay: 0 };
   @Output() notifyListGroupComponent: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -34,6 +35,7 @@ export class ModifyGroupComponent implements OnInit{
               public notificationsService: NotificationsService) {}
 
   ngOnInit() {
+    console.log(this.selectedGroupId,'Gorup ID')
     this.buildGroupForm();
     this.newGroupDetails$ = this.groupService.newGroupCreatedDetails$.subscribe(value => {
       if (value) {
