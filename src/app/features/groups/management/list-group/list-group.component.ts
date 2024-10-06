@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ColumnChooserService, GridAllModule} from "@syncfusion/ej2-angular-grids";
 import {Subscription} from "rxjs";
-import {GroupService} from "../services/group.service";
 import {ButtonAllModule} from "@syncfusion/ej2-angular-buttons";
 import {Router, RouterLink} from "@angular/router";
 import {DialogAllModule} from "@syncfusion/ej2-angular-popups";
 import {ModifyGroupComponent} from "../modify-group/modify-group.component";
 import {NgForOf, NgIf} from "@angular/common";
+import {GroupService} from "../services/group.service";
 
 @Component({
   selector: 'app-list-group',
