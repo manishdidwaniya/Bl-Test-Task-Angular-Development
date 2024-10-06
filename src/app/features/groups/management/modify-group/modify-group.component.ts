@@ -7,6 +7,7 @@ import {DialogModule} from "@syncfusion/ej2-angular-popups";
 import {Router} from "@angular/router";
 import {GroupService} from "../services/group.service";
 import {Subscription} from "rxjs";
+import {NotificationsService} from "../../../../shared/common/services/notifications.service";
 
 @Component({
   selector: 'app-modify-group',
@@ -29,13 +30,16 @@ export class ModifyGroupComponent implements OnInit{
   @Output() notifyListGroupComponent: EventEmitter<boolean> = new EventEmitter<boolean>();
   public newGroupDetails$: Subscription = new Subscription();
 
-  constructor(private fb: FormBuilder, private router: Router, public groupService: GroupService) {}
+  constructor(private fb: FormBuilder, private router: Router, public groupService: GroupService,
+              public notificationsService: NotificationsService) {}
 
   ngOnInit() {
     this.buildGroupForm();
     this.newGroupDetails$ = this.groupService.newGroupCreatedDetails$.subscribe(value => {
       if (value) {
-
+        this.notificationsService.displaySuccessMessageOnToast('Group has been successfully created.');
+        this.notifyListGroupComponent.emit(false);
+        this.router.navigate(['/groups'], { queryParams: {} });
       }
     })
   }

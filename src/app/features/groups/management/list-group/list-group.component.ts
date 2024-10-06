@@ -58,6 +58,7 @@ export class ListGroupComponent implements OnInit, OnDestroy{
 
   handleAddNewGroupComponentEvent(value: boolean) {
     this.isModalVisible = value;
+    this.router.navigate(['/groups'], { queryParams: {} });
   }
 
   ngOnDestroy() {
