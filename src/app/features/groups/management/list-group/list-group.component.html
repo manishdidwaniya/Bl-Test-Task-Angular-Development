@@ -51,5 +51,5 @@
 </div>
 
 <div *ngIf="isModalVisible">
-  <app-modify-group [selectedGroupId]="selectedGroupId" (notifyListGroupComponent)="handleAddNewGroupComponentEvent($event)"></app-modify-group>
+  <app-modify-group [selectedGroupId]="selectedGroupId" (notifyListGroupComponent)="handleModifyGroupComponentEvent($event)"></app-modify-group>
 </div>

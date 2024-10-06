@@ -70,8 +70,10 @@ export class ListGroupComponent implements OnInit, OnDestroy{
     this.isModalVisible = true;
   }
 
-  handleAddNewGroupComponentEvent(value: boolean) {
+  // Receiving data from child component
+  handleModifyGroupComponentEvent(value: boolean) {
     this.isModalVisible = value;
+    this.groupService.getAllGroupList();
     this.router.navigate(['/groups'], { queryParams: {} });
   }
 

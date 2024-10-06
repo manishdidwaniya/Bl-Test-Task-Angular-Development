@@ -14,6 +14,8 @@ export class GroupService {
   newGroupCreatedDetails$ = this.newGroupCreatedDetails.asObservable();
   selectedGroupDetails = new Subject();
   selectedGroupDetails$ = this.selectedGroupDetails.asObservable();
+  updateSelectedGroupDetails = new Subject();
+  updateSelectedGroupDetails$ = this.updateSelectedGroupDetails.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -45,6 +47,15 @@ export class GroupService {
           this.selectedGroupDetails.next(selectedGroupDetails);
         }
       })
+    }
+  }
+
+  // API function to update selected group details
+  updateGroupDetailsSendToServer(groupFormValue: any, selectedGroupId: string) {
+    if (groupFormValue) {
+      this.http.put(`${groupsApiUrl}/${selectedGroupId}`, groupFormValue).subscribe(updatedGroupDetails => {
+        this.updateSelectedGroupDetails.next(updatedGroupDetails);
+      });
     }
   }
 

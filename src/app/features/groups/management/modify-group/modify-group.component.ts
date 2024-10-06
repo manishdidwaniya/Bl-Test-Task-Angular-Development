@@ -32,6 +32,7 @@ export class ModifyGroupComponent implements OnInit, OnDestroy{
   public newGroupDetails$: Subscription = new Subscription();
   public groupModalHeading: string = '';
   public selectedGroupDetails$: Subscription = new Subscription();
+  public updateGroupDetails$: Subscription = new Subscription();
 
   constructor(private fb: FormBuilder, private router: Router, public groupService: GroupService,
               public notificationsService: NotificationsService) {}
@@ -55,6 +56,13 @@ export class ModifyGroupComponent implements OnInit, OnDestroy{
         this.patchGroupForm(selectedGroupDetails);
       }
     });
+    this.updateGroupDetails$ = this.groupService.updateSelectedGroupDetails$.subscribe(updatedGroupDetails => {
+      if (updatedGroupDetails) {
+        this.notificationsService.displaySuccessMessageOnToast('Group details has been successfully updated.');
+        this.notifyListGroupComponent.emit(false);
+        this.router.navigate(['/groups'], { queryParams: {} });
+      }
+    })
     this.getSelectedGroupDetails();
   }
 
@@ -77,6 +85,7 @@ export class ModifyGroupComponent implements OnInit, OnDestroy{
   patchGroupForm(group: any): void {
     // Patch the form values
     this.groupForm.patchValue({
+      id: group.id,
       groupName: group.groupName,
       groupDescription: group.groupDescription,
     });
@@ -92,6 +101,7 @@ export class ModifyGroupComponent implements OnInit, OnDestroy{
 
   buildGroupForm() {
     this.groupForm = this.fb.group({
+      id: [''],
       groupName: ['', Validators.required],
       groupDescription: [''],
       members: this.fb.array([]), // Form array for members
@@ -127,7 +137,11 @@ export class ModifyGroupComponent implements OnInit, OnDestroy{
 
   onGroupAddOrUpdate() {
     if (this.groupForm.get('groupName')?.value && this.groupForm.valid) {
-      this.groupService.sendNewGroupDetailsToServer(this.groupForm?.value);
+      if (this.selectedGroupId && this.selectedGroupId !== '') {
+        this.groupService.updateGroupDetailsSendToServer(this.groupForm?.value, this.selectedGroupId);
+      } else {
+        this.groupService.sendNewGroupDetailsToServer(this.groupForm?.value);
+      }
     } else {
       this.groupForm.markAllAsTouched();
     }
@@ -139,6 +153,9 @@ export class ModifyGroupComponent implements OnInit, OnDestroy{
     }
     if (this.selectedGroupDetails$) {
       this.selectedGroupDetails$.unsubscribe();
+    }
+    if (this.updateGroupDetails$) {
+      this.updateGroupDetails$.unsubscribe();
     }
   }
 }
