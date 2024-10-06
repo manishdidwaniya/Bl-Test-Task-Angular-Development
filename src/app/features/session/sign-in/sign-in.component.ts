@@ -29,6 +29,12 @@ export class SignInComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.buildUserLoginForm();
+    // This will redirect to dashboard when session is active
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.router.navigate(['/sign-in']);
+    }
   }
 
   buildUserLoginForm() {

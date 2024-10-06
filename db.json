@@ -4,6 +4,16 @@
       "id": "f9dc",
       "username": "manish123",
       "password": "abc123"
+    },
+    {
+      "id": "020a",
+      "username": "admin",
+      "password": "admin"
+    },
+    {
+      "id": "cd62",
+      "username": "demo",
+      "password": "demo"
     }
   ]
 }
