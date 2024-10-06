@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ColumnChooserService, GridAllModule} from "@syncfusion/ej2-angular-grids";
 import {Subscription} from "rxjs";
 import {ButtonAllModule} from "@syncfusion/ej2-angular-buttons";
-import {Router, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {DialogAllModule} from "@syncfusion/ej2-angular-popups";
 import {ModifyGroupComponent} from "../modify-group/modify-group.component";
 import {NgForOf, NgIf} from "@angular/common";
@@ -28,14 +28,26 @@ export class ListGroupComponent implements OnInit, OnDestroy{
   groupDetailsList: any = [];
   allGroupDetails$: Subscription = new Subscription();
   isModalVisible: boolean = false;
+  public routeQueryParams$: Subscription = new Subscription();
 
-  constructor(private groupService: GroupService, private router: Router) {
+  constructor(private groupService: GroupService, private router: Router, public activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.allGroupDetails$ = this.groupService.allGroupDetails$.subscribe((allGroupDetails: any) => {
       if (allGroupDetails) {
         this.groupDetailsList = allGroupDetails;
+      }
+    });
+    this.routeQueryParams$ = this.activatedRoute.queryParams.subscribe(params => {
+      if (params && Object.entries(params).length !== 0) {
+        if (params['add'] && params['add'] === 'true') {
+          this.onAddNewGroup();
+        } else if (params['id'] && params['id'] !== '') {
+          //TODO: Add logic when working edit
+        }
+      } else {
+        this.isModalVisible = false;
       }
     });
     this.groupService.getAllGroupList();
@@ -64,6 +76,9 @@ export class ListGroupComponent implements OnInit, OnDestroy{
   ngOnDestroy() {
     if (this.allGroupDetails$) {
       this.allGroupDetails$.unsubscribe();
+    }
+    if (this.routeQueryParams$) {
+      this.routeQueryParams$.unsubscribe();
     }
   }
 }
