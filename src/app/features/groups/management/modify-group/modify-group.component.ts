@@ -30,12 +30,12 @@ export class ModifyGroupComponent implements OnInit{
   public animationSettings: Object = { effect: 'Zoom', duration: 400, delay: 0 };
   @Output() notifyListGroupComponent: EventEmitter<boolean> = new EventEmitter<boolean>();
   public newGroupDetails$: Subscription = new Subscription();
+  public groupModalHeading: string = '';
 
   constructor(private fb: FormBuilder, private router: Router, public groupService: GroupService,
               public notificationsService: NotificationsService) {}
 
   ngOnInit() {
-    console.log(this.selectedGroupId,'Gorup ID')
     this.buildGroupForm();
     this.newGroupDetails$ = this.groupService.newGroupCreatedDetails$.subscribe(value => {
       if (value) {
@@ -43,7 +43,12 @@ export class ModifyGroupComponent implements OnInit{
         this.notifyListGroupComponent.emit(false);
         this.router.navigate(['/groups'], { queryParams: {} });
       }
-    })
+    });
+    if (this.selectedGroupId !== '') {
+      this.groupModalHeading = 'Update Group'
+    } else {
+      this.groupModalHeading = 'Create Group'
+    }
   }
 
   buildGroupForm() {
