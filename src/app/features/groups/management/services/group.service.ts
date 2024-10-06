@@ -12,9 +12,12 @@ export class GroupService {
   allGroupDetails$ = this.allGroupDetails.asObservable();
   newGroupCreatedDetails = new Subject();
   newGroupCreatedDetails$ = this.newGroupCreatedDetails.asObservable();
+  selectedGroupDetails = new Subject();
+  selectedGroupDetails$ = this.selectedGroupDetails.asObservable();
 
   constructor(private http: HttpClient) { }
 
+  // API function integration to get all group details
   getAllGroupList() {
     this.http.get(groupsApiUrl).subscribe((value) => {
       if (value) {
@@ -23,6 +26,7 @@ export class GroupService {
     });
   }
 
+  // API function to create new group
   sendNewGroupDetailsToServer(groupFormValue: any) {
     if (groupFormValue) {
       this.http.post(groupsApiUrl, groupFormValue).subscribe(newGroupCreatedDetails => {
@@ -30,6 +34,17 @@ export class GroupService {
         this.newGroupCreatedDetails.next(newGroupCreatedDetails);
        }
       });
+    }
+  }
+
+  // API function to get selected group details
+  getSelectedGroupDetailsFromApi(selectedGroupId: string) {
+    if (selectedGroupId && selectedGroupId !== '') {
+      this.http.get(`${groupsApiUrl}/${selectedGroupId}`).subscribe(selectedGroupDetails => {
+        if (selectedGroupDetails) {
+          this.selectedGroupDetails.next(selectedGroupDetails);
+        }
+      })
     }
   }
 

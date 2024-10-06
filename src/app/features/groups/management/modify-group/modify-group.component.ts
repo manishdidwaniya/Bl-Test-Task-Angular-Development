@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter, OnInit, Input} from '@angular/core';
+import {Component, Output, EventEmitter, OnInit, Input, OnDestroy} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgForOf, NgIf} from "@angular/common";
 import {TextBoxAllModule} from "@syncfusion/ej2-angular-inputs";
@@ -24,13 +24,14 @@ import {NotificationsService} from "../../../../shared/common/services/notificat
   styleUrl: './modify-group.component.scss'
 })
 
-export class ModifyGroupComponent implements OnInit{
+export class ModifyGroupComponent implements OnInit, OnDestroy{
   @Input() selectedGroupId? : string;
   groupForm!: FormGroup;
   public animationSettings: Object = { effect: 'Zoom', duration: 400, delay: 0 };
   @Output() notifyListGroupComponent: EventEmitter<boolean> = new EventEmitter<boolean>();
   public newGroupDetails$: Subscription = new Subscription();
   public groupModalHeading: string = '';
+  public selectedGroupDetails$: Subscription = new Subscription();
 
   constructor(private fb: FormBuilder, private router: Router, public groupService: GroupService,
               public notificationsService: NotificationsService) {}
@@ -49,6 +50,44 @@ export class ModifyGroupComponent implements OnInit{
     } else {
       this.groupModalHeading = 'Create Group'
     }
+    this.selectedGroupDetails$ = this.groupService.selectedGroupDetails$.subscribe(selectedGroupDetails => {
+      if (selectedGroupDetails) {
+        this.patchGroupForm(selectedGroupDetails);
+      }
+    });
+    this.getSelectedGroupDetails();
+  }
+
+  getSelectedGroupDetails() {
+    this.groupService.getSelectedGroupDetailsFromApi(this.selectedGroupId!);
+  }
+
+  /**
+   * Patches the group form with the provided group data.
+   *
+   * This method updates the form fields for the group name and
+   * description, and resets the members form array based on
+   * the members of the provided group. Each member's name and
+   * email are added to the form array as form groups.
+   *
+   * @param group - The group data to patch the form with. This should be an
+   * object containing the groupName, groupDescription, and members.
+   * Each member is expected to be an object with 'name' and 'email' properties.
+   */
+  patchGroupForm(group: any): void {
+    // Patch the form values
+    this.groupForm.patchValue({
+      groupName: group.groupName,
+      groupDescription: group.groupDescription,
+    });
+    const membersFormArray = this.groupForm.get('members') as FormArray;
+    membersFormArray.clear(); // Clear existing members
+    group.members.forEach((member:any) => {
+      membersFormArray.push(this.fb.group({
+        name: [member.name || ''],
+        email: [member.email || '', [Validators.email]]
+      }));
+    });
   }
 
   buildGroupForm() {
@@ -91,6 +130,15 @@ export class ModifyGroupComponent implements OnInit{
       this.groupService.sendNewGroupDetailsToServer(this.groupForm?.value);
     } else {
       this.groupForm.markAllAsTouched();
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.selectedGroupDetails$) {
+      this.selectedGroupDetails$.unsubscribe()
+    }
+    if (this.selectedGroupDetails$) {
+      this.selectedGroupDetails$.unsubscribe();
     }
   }
 }
