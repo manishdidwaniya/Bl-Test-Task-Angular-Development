@@ -1,0 +1,41 @@
+<ejs-dialog id="expenseDialog" [isModal]="true" [visible]="true" [header]="'Add an Expense'" [showCloseIcon]="true"
+            [position]="{ X: 'center', Y: 'center' }" class="p-6 overflow-hidden" [width]="'600px'"
+            [minHeight]="'70vh'">
+  <form [formGroup]="expenseForm">
+    <div class="mb-4">
+      <label>Group*:</label>
+      <ejs-dropdownlist formControlName="group"
+                        [dataSource]="allGroupList"
+                        [fields]="groupDropdownFields"
+                        [placeholder]="'Select any group'"
+                        (change)="onGroupChange($event)">
+      </ejs-dropdownlist>
+    </div>
+    <div>
+      <div class="mb-4">
+        <ejs-checkbox formControlName="splitBetweenAll" label="Select all members" (change)="onSelectAllMembers($event)"></ejs-checkbox>
+      </div>
+      <div class="mb-4">
+        <ejs-multiselect formControlName="groupMembers" [dataSource]="allGroupMembersList" [fields]='groupMembersDropdownFields' [placeholder]="'Select group members'"></ejs-multiselect>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label>Description*:</label>
+      <ejs-textbox formControlName="description" placeholder="Enter a description"></ejs-textbox>
+    </div>
+
+    <div class="mb-4">
+      <label>Amount:</label>
+      <ejs-numerictextbox formControlName="amount" [min]="0" placeholder="$0.00"></ejs-numerictextbox>
+    </div>
+
+    <div class="mb-4">
+      <label>Date:</label>
+      <ejs-datepicker placeholder="mm/dd/yyyy"></ejs-datepicker>
+    </div>
+
+    <div class="flex justify-end">
+      <button ejs-button isPrimary="true" content="Save Expense" (click)="onSubmitExpense()"></button>
+    </div>
+  </form>
+</ejs-dialog>
