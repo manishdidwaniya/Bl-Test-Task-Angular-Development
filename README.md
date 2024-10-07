@@ -1,27 +1,40 @@
-# BISPLITWISETASK
+# Angular Task Documentation
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.6.
+## Overview
+This documentation outlines the key features and technologies used in the Angular application, which implements user authentication and management functionalities, including sign-up, sign-in, group management, and expense tracking.
 
-## Development server
+## Features
+- **User Authentication**:
+  - **Sign Up**: Users can register by providing a username and password.
+  - **Sign In**: Users can log in with their credentials (username and password).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Group Management**:
+  - Users can create and manage groups.
 
-## Code scaffolding
+- **Expense Management**:
+  - Users can add and view expenses groups.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Custom Error Page**:
+  - Displays error 404 page.
 
-## Build
+- **Dashboard**:
+  - Displays key metrics and insights using **Syncfusion Charts**.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Technologies Used
+- **Angular**: Frontend framework for building the application.
+- **Json-server**: Used to create a RESTful API with a local `db.json` file for data storage and retrieval.
+- **Syncfusion**: UI components library used for building a responsive and modern user interface.
+- **Tailwind CSS**: Utility-first CSS framework for responsive design and styling.
+- **RxJS**: For reactive programming and managing state.
 
-## Running unit tests
+## Setup Instructions
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 1. Run JSON Server
 
-## Running end-to-end tests
+Make sure you have **json-server** installed globally:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+npm install -g json-server
 
-## Further help
+json-server --watch db.json  // run this in terminal
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
