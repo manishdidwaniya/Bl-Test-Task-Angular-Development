@@ -95,5 +95,17 @@ export class ModifyExpenseComponent implements OnInit{
     } else {
       this.expenseForm.patchValue({ groupMembers: [] });
     }
+    this.calculatePerPersonAmount();
   }
+
+  calculatePerPersonAmount() {
+    const addedAmount: number = this.expenseForm.get('amount')?.value;
+    const currentGroupMembers: [] = this.expenseForm.get('groupMembers')?.value;
+    let perPersonAmount: number = 0;
+    if (addedAmount && currentGroupMembers.length > 0) {
+      perPersonAmount = addedAmount/currentGroupMembers.length;
+    }
+    return '('+ '$' + perPersonAmount + ' per person' + ')';
+  }
+
 }

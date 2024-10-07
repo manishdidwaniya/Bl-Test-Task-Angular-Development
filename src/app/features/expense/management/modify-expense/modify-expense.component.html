@@ -26,7 +26,10 @@
 
     <div class="mb-4">
       <label>Amount:</label>
-      <ejs-numerictextbox formControlName="amount" [min]="0" placeholder="$0.00"></ejs-numerictextbox>
+      <ejs-numerictextbox formControlName="amount" format='c2' (change)="calculatePerPersonAmount()" [min]="0" placeholder="$0.00"></ejs-numerictextbox>
+      <div class="text-md">
+        {{calculatePerPersonAmount()}}
+      </div>
     </div>
 
     <div class="mb-4">
