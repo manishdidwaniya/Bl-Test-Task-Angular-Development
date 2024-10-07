@@ -27,5 +27,10 @@ export const routes: Routes = [
   },
   {
     path: expenseRoute, loadComponent: ()=> import('./features/expense/management/modify-expense/modify-expense.component').then(m => m.ModifyExpenseComponent)
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    loadComponent: () => import('./shared/common/error/error-404/error-404.component').then(m=> m.Error404Component)
   }
 ];
