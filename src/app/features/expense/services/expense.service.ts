@@ -9,6 +9,9 @@ import {Subject} from "rxjs";
 export class ExpenseService {
   newExpenseDetails = new Subject();
   newExpenseDetails$ = this.newExpenseDetails.asObservable();
+  allExpenseDetails = new Subject();
+  allExpenseDetails$ = this.allExpenseDetails.asObservable();
+
   constructor( private http: HttpClient) { }
 
   sendExpenseDetailsToServer(expenseDetails: any) {
@@ -18,4 +21,13 @@ export class ExpenseService {
       })
     }
   }
+
+  getAllExpenseDetails() {
+    this.http.get(expensesApiUrl).subscribe(value => {
+      if (value) {
+        this.allExpenseDetails.next(value);
+      }
+    });
+  }
+
 }
