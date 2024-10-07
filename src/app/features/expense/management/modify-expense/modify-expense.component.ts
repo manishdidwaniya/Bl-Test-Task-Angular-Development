@@ -124,4 +124,9 @@ export class ModifyExpenseComponent implements OnInit, OnDestroy{
     }
   }
 
+  public onOpen(args: any): void {
+    //Preventing the default dialog focus
+    args.preventFocus = true;
+  }
+
 }
