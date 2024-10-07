@@ -5,6 +5,7 @@ const signUpRoute: string = 'sign-up';
 const signInRoute: string = 'sign-in';
 const dashboardRoute: string = 'dashboard';
 const groupRoute: string = 'groups';
+const expenseRoute: string = 'expenses';
 
 export const routes: Routes = [
   {
@@ -23,5 +24,8 @@ export const routes: Routes = [
   },
   {
     path: groupRoute, loadComponent: ()=> import('./features/groups/management/list-group/list-group.component').then(m => m.ListGroupComponent)
+  },
+  {
+    path: expenseRoute, loadComponent: ()=> import('./features/expense/management/modify-expense/modify-expense.component').then(m => m.ModifyExpenseComponent)
   }
 ];

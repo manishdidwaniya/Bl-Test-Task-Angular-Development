@@ -23,6 +23,7 @@
     "@angular/ssr": "^18.2.6",
     "@syncfusion/ej2-angular-buttons": "^27.1.51",
     "@syncfusion/ej2-angular-calendars": "^27.1.51",
+    "@syncfusion/ej2-angular-charts": "^27.1.51",
     "@syncfusion/ej2-angular-dropdowns": "^27.1.51",
     "@syncfusion/ej2-angular-grids": "^27.1.51",
     "@syncfusion/ej2-angular-inputs": "^27.1.50",

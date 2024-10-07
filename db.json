@@ -60,6 +60,18 @@
       "description": "sef",
       "amount": 12,
       "date": "2024-10-07T04:24:17.140Z"
+    },
+    {
+      "id": "0959",
+      "group": "2c1f",
+      "splitBetweenAll": true,
+      "groupMembers": [
+        "Manish",
+        "Rahul  "
+      ],
+      "description": "Holi",
+      "amount": 150,
+      "date": "2024-10-30T06:04:59.000Z"
     }
   ]
 }
