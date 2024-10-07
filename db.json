@@ -44,5 +44,22 @@
         }
       ]
     }
+  ],
+  "expenses": [
+    {
+      "id": "bb7f",
+      "group": "2c1f",
+      "splitBetweenAll": true,
+      "groupMembers": [
+        "Manish",
+        "Rahul  ",
+        "Akash",
+        "Honey",
+        "Pallav"
+      ],
+      "description": "sef",
+      "amount": 12,
+      "date": "2024-10-07T04:24:17.140Z"
+    }
   ]
 }

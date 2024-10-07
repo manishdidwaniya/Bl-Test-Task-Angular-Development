@@ -10,6 +10,11 @@
                         [placeholder]="'Select any group'"
                         (change)="onGroupChange($event)">
       </ejs-dropdownlist>
+      <div
+        *ngIf="expenseForm.get('group')?.invalid && expenseForm.get('group')?.touched"
+        class="text-red-500 text-xs mt-1">
+        Group is required
+      </div>
     </div>
     <div>
       <div class="mb-4">
@@ -22,19 +27,34 @@
     <div class="mb-4">
       <label>Description*:</label>
       <ejs-textbox formControlName="description" placeholder="Enter a description"></ejs-textbox>
-    </div>
-
-    <div class="mb-4">
-      <label>Amount:</label>
-      <ejs-numerictextbox formControlName="amount" format='c2' (change)="calculatePerPersonAmount()" [min]="0" placeholder="$0.00"></ejs-numerictextbox>
-      <div class="text-md">
-        {{calculatePerPersonAmount()}}
+      <div
+        *ngIf="expenseForm.get('description')?.invalid && expenseForm.get('description')?.touched"
+        class="text-red-500 text-xs mt-1">
+        Description is required
       </div>
     </div>
 
     <div class="mb-4">
-      <label>Date:</label>
-      <ejs-datepicker placeholder="mm/dd/yyyy"></ejs-datepicker>
+      <label>Amount*:</label>
+      <ejs-numerictextbox formControlName="amount" format='c2' (change)="calculatePerPersonAmount()" [min]="0" placeholder="$0.00"></ejs-numerictextbox>
+      <div class="text-md">
+        {{calculatePerPersonAmount()}}
+      </div>
+      <div
+        *ngIf="expenseForm.get('amount')?.invalid && expenseForm.get('amount')?.touched"
+        class="text-red-500 text-xs mt-1">
+        Amount is required
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label>Date*:</label>
+      <ejs-datepicker formControlName="date" placeholder="mm/dd/yyyy"></ejs-datepicker>
+      <div
+        *ngIf="expenseForm.get('date')?.invalid && expenseForm.get('date')?.touched"
+        class="text-red-500 text-xs mt-1">
+        Date is required
+      </div>
     </div>
 
     <div class="flex justify-end">

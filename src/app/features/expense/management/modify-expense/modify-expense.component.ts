@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ButtonAllModule, CheckBoxAllModule, RadioButtonAllModule} from "@syncfusion/ej2-angular-buttons";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {DropDownListAllModule, MultiSelectAllModule} from "@syncfusion/ej2-angular-dropdowns";
 import {NumericTextBoxAllModule, TextBoxAllModule} from "@syncfusion/ej2-angular-inputs";
 import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -8,6 +8,7 @@ import {DialogAllModule} from "@syncfusion/ej2-angular-popups";
 import {DatePickerAllModule} from "@syncfusion/ej2-angular-calendars";
 import {GroupService} from "../../../groups/management/services/group.service";
 import {Subscription} from "rxjs";
+import {ExpenseService} from "../../services/expense.service";
 
 @Component({
   selector: 'app-modify-expense',
@@ -23,20 +24,22 @@ import {Subscription} from "rxjs";
     NumericTextBoxAllModule,
     RadioButtonAllModule,
     CheckBoxAllModule,
-    MultiSelectAllModule
+    MultiSelectAllModule,
+    NgIf
   ],
   templateUrl: './modify-expense.component.html',
   styleUrl: './modify-expense.component.scss'
 })
-export class ModifyExpenseComponent implements OnInit{
+export class ModifyExpenseComponent implements OnInit, OnDestroy{
   expenseForm!: FormGroup;
   allGroupList$: Subscription = new Subscription();
   groupDropdownFields: Object = {text: 'groupName', value: 'id'};
   groupMembersDropdownFields: Object = {text: 'name', value: 'name'};
   allGroupList: any = [];
   allGroupMembersList: any = [];
+  newExpenseDetails$: Subscription = new Subscription();
 
-  constructor(private fb: FormBuilder, private groupService: GroupService ) {
+  constructor(private fb: FormBuilder, private groupService: GroupService, private expenseService: ExpenseService) {
   }
 
   ngOnInit(): void {
@@ -45,24 +48,31 @@ export class ModifyExpenseComponent implements OnInit{
       if (allGroups) {
         this.allGroupList = allGroups;
       }
+    });
+    this.newExpenseDetails$ =  this.expenseService.newExpenseDetails$.subscribe(newAddedExpenseDetails => {
+      if (newAddedExpenseDetails) {
+
+      }
     })
     this.groupService.getAllGroupList();
   }
 
   buildExpenseForm(): void {
     this.expenseForm = this.fb.group({
-      group: [''],
+      group: ['', Validators.required],
       splitBetweenAll: [true],
       groupMembers: [''],
       description: ['', Validators.required],
-      amount: ['', [Validators.required, Validators.min(0.01)]],
+      amount: ['', Validators.required],
       date: [new Date(), Validators.required]
     });
   }
 
   onSubmitExpense() {
     if (this.expenseForm.valid) {
-      console.log(this.expenseForm.value);
+      this.expenseService.sendExpenseDetailsToServer(this.expenseForm?.value);
+    } else {
+      this.expenseForm.markAllAsTouched();
     }
   }
 
@@ -106,6 +116,12 @@ export class ModifyExpenseComponent implements OnInit{
       perPersonAmount = addedAmount/currentGroupMembers.length;
     }
     return '('+ '$' + perPersonAmount + ' per person' + ')';
+  }
+
+  ngOnDestroy() {
+    if (this.newExpenseDetails$) {
+      this.newExpenseDetails$.unsubscribe();
+    }
   }
 
 }
