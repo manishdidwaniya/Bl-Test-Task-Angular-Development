@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {usersApiUrl} from "../configurations/routes-config";
-import {map, Observable} from "rxjs";
+import {map, Observable, Subject} from "rxjs";
 import {Session} from "../../features/session/model/session";
 
 @Injectable({
@@ -10,6 +10,9 @@ import {Session} from "../../features/session/model/session";
 export class AuthService {
   isLoggedIn: boolean = false;
   loggedInUser: Session[] = [];
+  isUserAuthenticated = new Subject<boolean>();
+  isUserAuthenticated$ = this.isUserAuthenticated.asObservable();
+
   constructor(private http: HttpClient) { }
 
   /**
@@ -33,6 +36,7 @@ export class AuthService {
           this.isLoggedIn = true;
           this.loggedInUser = user;
           localStorage.setItem('currentUser', JSON.stringify(user)); // Store user data
+          this.isUserAuthenticated.next(true);
           return true;
         }
         return false;

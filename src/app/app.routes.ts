@@ -23,9 +23,11 @@ export const routes: Routes = [
     path: dashboardRoute, loadComponent: ()=> import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
   },
   {
+    canActivate: [authGuard],
     path: groupRoute, loadComponent: ()=> import('./features/groups/management/list-group/list-group.component').then(m => m.ListGroupComponent)
   },
   {
+    canActivate: [authGuard],
     path: expenseRoute, loadComponent: ()=> import('./features/expense/management/modify-expense/modify-expense.component').then(m => m.ModifyExpenseComponent)
   },
   {

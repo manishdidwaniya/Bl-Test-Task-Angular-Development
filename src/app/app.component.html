@@ -1,11 +1,3 @@
 
-<div class="flex mt-20 text-4xl justify-center">
-  Welcome back {{loggedInUserName}} !!!
-</div>
-<div class="flex justify-center p-4">
-  <button ejs-button class="m-2" isPrimary="true" content="Groups" [routerLink]="'/groups'"></button>
-  <button ejs-button class="m-2" isPrimary="true" content="Expenses" [routerLink]="'/expenses'"></button>
-  <button ejs-button class="m-2" isPrimary="true" content="Dashboard" [routerLink]="'/dashboard'"></button>
-</div>
-
+<app-header></app-header>
 <router-outlet />
