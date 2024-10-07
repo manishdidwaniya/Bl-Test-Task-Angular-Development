@@ -37,4 +37,6 @@ Make sure you have **json-server** installed globally:
 npm install -g json-server
 
 json-server --watch db.json  // run this in terminal
-
+```
+### 2. Syncfusion License
+   The Syncfusion license bar displays at the top of the application. To adjust the application layout, margin is set to display content slightly below the top.
