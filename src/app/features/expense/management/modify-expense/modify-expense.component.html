@@ -1,6 +1,6 @@
 <ejs-dialog id="expenseDialog" [isModal]="true" [visible]="true" [header]="'Add an Expense'" [showCloseIcon]="true"
             [position]="{ X: 'center', Y: 'center' }" class="p-6 overflow-hidden" [width]="'600px'"
-            [minHeight]="'70vh'" (open)="onOpen($event)">
+            [minHeight]="'70vh'" (open)="onOpen($event)" [visible]="isModalVisible" (close)="onDialogClose()">
   <form [formGroup]="expenseForm">
     <div class="mb-4">
       <label>Group*:</label>

@@ -9,6 +9,7 @@ import {DatePickerAllModule} from "@syncfusion/ej2-angular-calendars";
 import {GroupService} from "../../../groups/management/services/group.service";
 import {Subscription} from "rxjs";
 import {ExpenseService} from "../../services/expense.service";
+import {NotificationsService} from "../../../../shared/common/services/notifications.service";
 
 @Component({
   selector: 'app-modify-expense',
@@ -38,8 +39,9 @@ export class ModifyExpenseComponent implements OnInit, OnDestroy{
   allGroupList: any = [];
   allGroupMembersList: any = [];
   newExpenseDetails$: Subscription = new Subscription();
-
-  constructor(private fb: FormBuilder, private groupService: GroupService, private expenseService: ExpenseService) {
+  isModalVisible: boolean = true;
+  constructor(private fb: FormBuilder, private groupService: GroupService, private expenseService: ExpenseService,
+              private notificationsService: NotificationsService) {
   }
 
   ngOnInit(): void {
@@ -51,7 +53,8 @@ export class ModifyExpenseComponent implements OnInit, OnDestroy{
     });
     this.newExpenseDetails$ =  this.expenseService.newExpenseDetails$.subscribe(newAddedExpenseDetails => {
       if (newAddedExpenseDetails) {
-
+        this.notificationsService.displaySuccessMessageOnToast('Added new expense successfully.');
+        this.isModalVisible = false;
       }
     })
     this.groupService.getAllGroupList();
@@ -127,6 +130,10 @@ export class ModifyExpenseComponent implements OnInit, OnDestroy{
   public onOpen(args: any): void {
     //Preventing the default dialog focus
     args.preventFocus = true;
+  }
+
+  onDialogClose(): void {
+    this.isModalVisible = false;
   }
 
 }
